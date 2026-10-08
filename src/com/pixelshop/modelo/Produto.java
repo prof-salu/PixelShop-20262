@@ -1,14 +1,19 @@
 package com.pixelshop.modelo;
 
-public class Produto {
+import java.util.Objects;
+
+public abstract class Produto {
     private String nome;
     private double preco;
     private int quantidadeEstoque;
+
+    private static int totalProdutosCadastrados;
 
     public Produto(String nome, double preco, int quantidadeEstoque){
         this.nome = nome;
         setPreco(preco);
         setQuantidadeEstoque(quantidadeEstoque);
+        totalProdutosCadastrados++;
     }
 
     //gets
@@ -23,6 +28,8 @@ public class Produto {
     public int getQuantidadeEstoque(){
         return quantidadeEstoque;
     }
+
+    public static int getTotalProdutosCadastrados(){return Produto.totalProdutosCadastrados;}
 
     public boolean setPreco(double preco){
         if(preco > 0){
@@ -58,5 +65,19 @@ public class Produto {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "nome='" + nome + '\'' +
+                ", preco=" + preco +
+                ", quantidadeEstoque=" + quantidadeEstoque;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Produto produto)) return false;
+        return Objects.equals(nome, produto.nome);
     }
 }
